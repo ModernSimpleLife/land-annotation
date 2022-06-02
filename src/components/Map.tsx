@@ -1,12 +1,9 @@
 import {
-  IonButton,
   IonCard,
   IonCardContent,
   IonCardHeader,
   IonCardTitle,
-  IonHeader,
 } from "@ionic/react";
-import React, { useRef, useEffect, useState } from "react";
 import Map, {
   GeolocateControl,
   Marker,
