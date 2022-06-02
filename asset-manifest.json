@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/land-annotation/static/css/main.268d822f.css",
-    "main.js": "/land-annotation/static/js/main.d2cb712b.js",
+    "main.js": "/land-annotation/static/js/main.63b7411f.js",
     "static/js/738.6f80ceea.chunk.js": "/land-annotation/static/js/738.6f80ceea.chunk.js",
     "static/js/372.06357cff.chunk.js": "/land-annotation/static/js/372.06357cff.chunk.js",
     "static/js/856.f5ebee0d.chunk.js": "/land-annotation/static/js/856.f5ebee0d.chunk.js",
@@ -10,12 +10,12 @@
     "static/js/215.d7d3f4c4.chunk.js": "/land-annotation/static/js/215.d7d3f4c4.chunk.js",
     "static/js/841.213112b9.chunk.js": "/land-annotation/static/js/841.213112b9.chunk.js",
     "static/js/186.bd9677a9.chunk.js": "/land-annotation/static/js/186.bd9677a9.chunk.js",
-    "static/js/483.7289ffac.chunk.js": "/land-annotation/static/js/483.7289ffac.chunk.js",
     "static/js/377.d5003f35.chunk.js": "/land-annotation/static/js/377.d5003f35.chunk.js",
+    "static/js/mapbox-gl-csp-worker.144bc806.worker.js": "/land-annotation/static/js/mapbox-gl-csp-worker.144bc806.worker.js",
     "service-worker.js": "/land-annotation/service-worker.js",
     "index.html": "/land-annotation/index.html",
     "main.268d822f.css.map": "/land-annotation/static/css/main.268d822f.css.map",
-    "main.d2cb712b.js.map": "/land-annotation/static/js/main.d2cb712b.js.map",
+    "main.63b7411f.js.map": "/land-annotation/static/js/main.63b7411f.js.map",
     "738.6f80ceea.chunk.js.map": "/land-annotation/static/js/738.6f80ceea.chunk.js.map",
     "372.06357cff.chunk.js.map": "/land-annotation/static/js/372.06357cff.chunk.js.map",
     "856.f5ebee0d.chunk.js.map": "/land-annotation/static/js/856.f5ebee0d.chunk.js.map",
@@ -24,11 +24,10 @@
     "215.d7d3f4c4.chunk.js.map": "/land-annotation/static/js/215.d7d3f4c4.chunk.js.map",
     "841.213112b9.chunk.js.map": "/land-annotation/static/js/841.213112b9.chunk.js.map",
     "186.bd9677a9.chunk.js.map": "/land-annotation/static/js/186.bd9677a9.chunk.js.map",
-    "483.7289ffac.chunk.js.map": "/land-annotation/static/js/483.7289ffac.chunk.js.map",
     "377.d5003f35.chunk.js.map": "/land-annotation/static/js/377.d5003f35.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.268d822f.css",
-    "static/js/main.d2cb712b.js"
+    "static/js/main.63b7411f.js"
   ]
 }
