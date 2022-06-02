@@ -12,6 +12,12 @@ import Map, {
   FillLayer,
 } from "react-map-gl";
 import { Event } from "../state";
+import mapboxgl from "mapbox-gl"; // This is a dependency of react-map-gl even if you didn't explicitly install it
+
+// @ts-ignore
+mapboxgl.workerClass =
+  // eslint-disable-next-line import/no-webpack-loader-syntax
+  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 const land: GeoJSON.Feature<GeoJSON.Geometry> = {
   type: "Feature",
