@@ -9,7 +9,7 @@ import {
   IonTabs,
   setupIonicReact,
 } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
+import { IonReactHashRouter, IonReactRouter } from "@ionic/react-router";
 import { ellipse, triangle } from "ionicons/icons";
 import Map from "./pages/Map";
 import AnnotationsPage from "./pages/Annotations";
@@ -41,7 +41,7 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
-        <IonRouterOutlet>
+        <IonReactHashRouter>
           <Route exact path="/map">
             <Map />
           </Route>
@@ -51,7 +51,7 @@ const App: React.FC = () => (
           <Route exact path="/">
             <Redirect to="/map" />
           </Route>
-        </IonRouterOutlet>
+        </IonReactHashRouter>
         <IonTabBar slot="bottom">
           <IonTabButton tab="Map" href="/map">
             <IonIcon icon={triangle} />
