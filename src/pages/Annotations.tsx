@@ -122,6 +122,7 @@ interface FormEvent<T> {
 
 const EventForm: React.FC<FormEvent<Event>> = (event) => {
   const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const [location, setLocation] = useState<Location | null>(null);
   const [image, setImage] = useState<Image | null>(null);
 
@@ -148,6 +149,7 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
       title,
       location,
       image,
+      description,
     });
   }
 
@@ -166,6 +168,14 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
           <IonInput
             value={title}
             onIonChange={(e) => setTitle(e.detail.value!)}
+          ></IonInput>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel position="stacked">Description</IonLabel>
+          <IonInput
+            value={description}
+            onIonChange={(e) => setDescription(e.detail.value!)}
           ></IonInput>
         </IonItem>
 

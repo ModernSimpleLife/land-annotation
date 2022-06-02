@@ -55,6 +55,7 @@ export interface Event {
   title: string;
   location: Location;
   image: Image;
+  description: string;
 }
 
 export interface State {
