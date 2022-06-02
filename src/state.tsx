@@ -1,5 +1,6 @@
 import create from "zustand";
 import { persist } from "zustand/middleware";
+import imageCompression from "browser-image-compression";
 
 export class Location {
   constructor(readonly latitude: number, readonly longitude: number) {}
@@ -24,9 +25,16 @@ export class Image {
   constructor(readonly base64: string) {}
 
   static async fromFile(file: File): Promise<Image> {
+    const options = {
+      maxSizeMB: 0.1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    };
+    const compressedFile = await imageCompression(file, options);
+
     return new Promise((resolve, reject) => {
       let reader = new FileReader();
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(compressedFile);
       reader.onload = () => {
         resolve(new Image(reader.result as string));
       };
