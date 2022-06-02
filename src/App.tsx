@@ -9,7 +9,7 @@ import {
   IonTabs,
   setupIonicReact,
 } from "@ionic/react";
-import { IonReactHashRouter, IonReactRouter } from "@ionic/react-router";
+import { IonReactHashRouter } from "@ionic/react-router";
 import { ellipse, triangle } from "ionicons/icons";
 import Map from "./pages/Map";
 import AnnotationsPage from "./pages/Annotations";
