@@ -66,7 +66,7 @@ const AnnotationsPage: React.FC = () => {
 
         <div className="p-8 w-full h-full">
           <IonButton onClick={handleExport}>Export</IonButton>
-          <input type="file" onChange={handleImport} />
+          <input type="file" accept=".json" onChange={handleImport} />
           <EventsSection></EventsSection>
         </div>
       </IonContent>
