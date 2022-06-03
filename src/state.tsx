@@ -1,6 +1,6 @@
 import create from "zustand";
 import { persist, StateStorage } from "zustand/middleware";
-import imageCompression from "browser-image-compression";
+// import imageCompression from "browser-image-compression";
 import localForage from "localforage";
 
 export class Location {
