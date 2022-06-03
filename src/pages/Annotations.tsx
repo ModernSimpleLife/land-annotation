@@ -181,12 +181,7 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
 
         <IonItem>
           <IonLabel position="stacked">Image</IonLabel>
-          <input
-            type="file"
-            accept="image/*"
-            capture="environment"
-            onChange={onImageUpload}
-          ></input>
+          <input type="file" accept="image/*" onChange={onImageUpload}></input>
 
           {image && (
             <img className="w-full h-auto" src={image.base64} alt="Annotated" />
