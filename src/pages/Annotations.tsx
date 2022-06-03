@@ -180,7 +180,7 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
         </IonItem>
 
         <IonItem>
-          <IonLabel position="stacked">Title</IonLabel>
+          <IonLabel position="stacked">Image</IonLabel>
           <input
             type="file"
             accept="image/*"

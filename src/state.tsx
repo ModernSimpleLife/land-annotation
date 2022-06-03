@@ -26,16 +26,16 @@ export class Image {
   constructor(readonly base64: string) {}
 
   static async fromFile(file: File): Promise<Image> {
-    const options = {
-      maxSizeMB: 0.1,
-      maxWidthOrHeight: 1920,
-      useWebWorker: true,
-    };
-    const compressedFile = await imageCompression(file, options);
+    // const options = {
+    //   maxSizeMB: 0.1,
+    //   maxWidthOrHeight: 1920,
+    //   useWebWorker: true,
+    // };
+    // file = await imageCompression(file, options);
 
     return new Promise((resolve, reject) => {
       let reader = new FileReader();
-      reader.readAsDataURL(compressedFile);
+      reader.readAsDataURL(file);
       reader.onload = () => {
         resolve(new Image(reader.result as string));
       };
