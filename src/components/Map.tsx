@@ -75,7 +75,7 @@ function EventDetails(props: EventDetailsProps) {
         <img
           src={props.event.image.base64}
           alt="Marker"
-          className="w-64 h-64 rounded-full"
+          className="w-64 h-64 rounded-full object-cover"
         ></img>
         <IonCardTitle>{props.event.title}</IonCardTitle>
         <IonCardSubtitle>{props.event.location.toString()}</IonCardSubtitle>
@@ -107,6 +107,7 @@ export default function AnnotatedMap(props: Props) {
         positionOptions={{ enableHighAccuracy: true }}
         trackUserLocation={true}
         showUserHeading={true}
+        showAccuracyCircle={false}
       />
 
       {props.events.map((e, i) => (
@@ -120,7 +121,7 @@ export default function AnnotatedMap(props: Props) {
             <img
               src={e.image.base64}
               alt={e.title}
-              className="rounded-full w-16 h-16"
+              className="rounded-full w-16 h-16 object-cover"
             />
           </button>
         </Marker>

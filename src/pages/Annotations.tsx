@@ -188,7 +188,9 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
             onChange={onImageUpload}
           ></input>
 
-          {image && <img src={image.base64} alt="Annotated" />}
+          {image && (
+            <img className="w-full h-auto" src={image.base64} alt="Annotated" />
+          )}
         </IonItem>
 
         <IonItem>
