@@ -25,6 +25,7 @@
     "browser-image-compression": "^2.0.0",
     "eslint": "^8.16.0",
     "ionicons": "^5.4.0",
+    "localforage": "^1.10.0",
     "mapbox-gl": "^2.8.2",
     "prettier": "^2.6.2",
     "react": "^17.0.1",

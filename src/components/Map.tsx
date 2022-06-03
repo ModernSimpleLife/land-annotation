@@ -78,7 +78,7 @@ export default function AnnotatedMap(props: Props) {
         zoom: 3.5,
       }}
       onLoad={(e) => e.target.resize()}
-      mapStyle="mapbox://styles/mapbox/streets-v9"
+      mapStyle="mapbox://styles/mapbox/satellite-v9"
       mapboxAccessToken="pk.eyJ1IjoibGhlcm1hbi1jcyIsImEiOiJja3g1ZjF1bXoyYW82MnZxM21jODBmanJ3In0.BAJg8UuLGqwVd4WI1XFXUA"
     >
       <GeolocateControl

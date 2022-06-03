@@ -1,6 +1,7 @@
 import create from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, StateStorage } from "zustand/middleware";
 import imageCompression from "browser-image-compression";
+import localForage from "localforage";
 
 export class Location {
   constructor(readonly latitude: number, readonly longitude: number) {}
@@ -76,6 +77,9 @@ const useStore = create(
     }),
     {
       name: "state",
+      // Force casting, localForage's setItem returns Promise<string> but can be treated as
+      // Promise<void>
+      getStorage: () => localForage as StateStorage,
     }
   )
 );
