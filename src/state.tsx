@@ -229,9 +229,17 @@ const useStore = create(
 
 export function importState(json: string) {
   // TODO: validate
-  const state = JSON.parse(json) as State;
+  const stateRaw = JSON.parse(json);
+  const events = (stateRaw["events"] as Record<string, string>[]).map(
+    (b) => new Image(b["_base64"])
+  );
 
-  useStore.setState(state, true);
+  useStore.setState(
+    {
+      events,
+    },
+    true
+  );
 }
 
 export function exportState(): string {
