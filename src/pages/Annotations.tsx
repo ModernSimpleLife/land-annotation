@@ -127,18 +127,17 @@ const EventForm: React.FC<FormEvent<Image>> = (event) => {
     );
   }
 
-  function downloadBase64File(base64Data: string) {
-    const downloadLink = document.createElement("a");
-    downloadLink.href = base64Data;
-    downloadLink.download = "data.jpg";
-    downloadLink.click();
-    downloadLink.remove();
-  }
+  // function downloadBase64File(base64Data: string) {
+  //   const downloadLink = document.createElement("a");
+  //   downloadLink.href = base64Data;
+  //   downloadLink.download = "data.jpg";
+  //   downloadLink.click();
+  //   downloadLink.remove();
+  // }
 
   async function onImageUpload(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files[0]) {
       const img = await Image.fromFile(event.target.files[0]);
-      console.log(img.datetime);
       setImage(img);
       setLocation(img.location);
       setComment(img.comment);
@@ -149,7 +148,7 @@ const EventForm: React.FC<FormEvent<Image>> = (event) => {
     if (!image) return;
     image.comment = comment;
 
-    downloadBase64File(image.base64);
+    // downloadBase64File(image.base64);
     event.onSubmit(image);
   }
 
@@ -164,11 +163,7 @@ const EventForm: React.FC<FormEvent<Image>> = (event) => {
       </IonListHeader>
       <IonList>
         <IonItem>
-          <input
-            type="file"
-            accept="image/jpeg"
-            onChange={onImageUpload}
-          ></input>
+          <input type="file" onChange={onImageUpload}></input>
 
           {image && (
             <img className="w-full h-auto" src={image.base64} alt="Annotated" />
