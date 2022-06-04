@@ -123,8 +123,7 @@ interface FormEvent<T> {
 }
 
 const EventForm: React.FC<FormEvent<Event>> = (event) => {
-  const [title, setTitle] = useState("");
-  const [description, setComment] = useState("");
+  const [comment, setComment] = useState("");
   const [location, setLocation] = useState<Location | null>(null);
   const [image, setImage] = useState<Image | null>(null);
 
@@ -147,7 +146,6 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
       const img = await Image.fromFile(event.target.files[0]);
       console.log(img.datetime);
       setImage(img);
-      setTitle(img.title);
       setLocation(img.location);
       setComment(img.comment);
     }
@@ -155,8 +153,7 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
 
   function onSubmit() {
     if (!image) return;
-    image.title = title;
-    image.comment = description;
+    image.comment = comment;
 
     downloadBase64File(image.base64);
     // event.onSubmit({
@@ -190,17 +187,9 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
         </IonItem>
 
         <IonItem>
-          <IonLabel position="stacked">Title</IonLabel>
-          <IonInput
-            value={title}
-            onIonChange={(e) => setTitle(e.detail.value!)}
-          ></IonInput>
-        </IonItem>
-
-        <IonItem>
           <IonLabel position="stacked">Comment</IonLabel>
           <IonInput
-            value={description}
+            value={comment}
             onIonChange={(e) => setComment(e.detail.value!)}
           ></IonInput>
         </IonItem>

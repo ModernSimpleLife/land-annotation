@@ -5,13 +5,6 @@ import localForage from "localforage";
 import * as piexif from "piexifjs";
 import _ from "lodash";
 
-// Custom Tag
-piexif.ExifIFD.UserTitle = 37509;
-piexif.TAGS["Exif"][piexif.ExifIFD.UserTitle] = {
-  name: "UserTitle",
-  type: "Ascii",
-};
-
 export class Location {
   constructor(readonly latitude: number, readonly longitude: number) {}
 
@@ -86,16 +79,6 @@ export class Image {
     return new Location(decimalLatitude, decimalLongitude);
   }
 
-  get title(): string {
-    return _.get(this.exifObj, ["Exif", piexif.ExifIFD.UserTitle]) || "";
-  }
-
-  set title(newTitle: string) {
-    if (this.title === newTitle) return;
-    _.set(this.exifObj, ["Exif", piexif.ExifIFD.UserTitle], newTitle);
-    this.update();
-  }
-
   get comment(): string {
     return _.get(this.exifObj, ["Exif", piexif.ExifIFD.UserComment]) || "";
   }
@@ -121,26 +104,6 @@ export class Image {
       return new Date();
     }
   }
-
-  // get title(): string {
-  //   return _.get(this.exifObj, ["0th", piexif.ImageIFD.XPTitle]) || "";
-  // }
-
-  // set title(newTitle: string) {
-  //   if (this.title === newTitle) return;
-  //   _.set(this.exifObj, ["0th", piexif.ImageIFD.XPTitle], newTitle);
-  //   this.update();
-  // }
-
-  // get comment(): string {
-  //   return _.get(this.exifObj, ["0th", piexif.ImageIFD.XPComment]) || "";
-  // }
-
-  // set comment(newComment: string) {
-  //   if (this.comment === newComment) return;
-  //   _.set(this.exifObj, ["0th", piexif.ImageIFD.XPComment], newComment);
-  //   this.update();
-  // }
 
   static async fromFile(file: File): Promise<Image> {
     // const options = {
