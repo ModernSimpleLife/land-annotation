@@ -24,6 +24,7 @@
     "@types/react-router-dom": "^5.1.7",
     "browser-image-compression": "^2.0.0",
     "eslint": "^8.16.0",
+    "hash-wasm": "^4.9.0",
     "ionicons": "^5.4.0",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",

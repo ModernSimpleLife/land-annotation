@@ -18,13 +18,7 @@ import {
 import { ChangeEvent, useEffect, useState } from "react";
 import { locate, add } from "ionicons/icons";
 import "./Annotations.css";
-import useStore, {
-  Image,
-  Event,
-  Location,
-  exportState,
-  importState,
-} from "../state";
+import useStore, { Image, Location, exportState, importState } from "../state";
 
 const AnnotationsPage: React.FC = () => {
   function handleImport(e: ChangeEvent<HTMLInputElement>) {
@@ -90,7 +84,7 @@ const EventsSection: React.FC = () => {
         {events.map((e, i) => (
           <IonItem key={i}>
             <IonButton expand="full">
-              {i + 1}. {e.title}
+              {i + 1}. {e.comment}
             </IonButton>
           </IonItem>
         ))}
@@ -122,7 +116,7 @@ interface FormEvent<T> {
   onCancel: () => void;
 }
 
-const EventForm: React.FC<FormEvent<Event>> = (event) => {
+const EventForm: React.FC<FormEvent<Image>> = (event) => {
   const [comment, setComment] = useState("");
   const [location, setLocation] = useState<Location | null>(null);
   const [image, setImage] = useState<Image | null>(null);
@@ -156,12 +150,7 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
     image.comment = comment;
 
     downloadBase64File(image.base64);
-    // event.onSubmit({
-    //   title,
-    //   location,
-    //   image,
-    //   description,
-    // });
+    event.onSubmit(image);
   }
 
   useEffect(() => {

@@ -4,6 +4,7 @@ import { persist, StateStorage } from "zustand/middleware";
 import localForage from "localforage";
 import * as piexif from "piexifjs";
 import _ from "lodash";
+import { createSHA256 } from "hash-wasm";
 
 export class Location {
   constructor(readonly latitude: number, readonly longitude: number) {}
@@ -48,6 +49,17 @@ export class Image {
     const obj = piexif.load(_base64);
     this.exifObj = obj;
     debugExif(obj);
+  }
+
+  async hash(): Promise<string> {
+    const h = await createSHA256();
+    h.init();
+
+    const key = `${
+      this.comment
+    }L${this.location.toString()}T${this.datetime.toISOString()}`;
+    h.update(key);
+    return `image${h.digest("hex")}`;
   }
 
   get base64(): string {
@@ -132,23 +144,70 @@ export class Image {
   }
 }
 
-export interface Event {
-  title: string;
-  location: Location;
-  image: Image;
-  description: string;
+export interface State {
+  events: Image[];
+  addEvent: (e: Image) => void;
 }
 
-export interface State {
-  events: Event[];
-  addEvent: (e: Event) => void;
+// class PersistentStorage implements StateStorage {
+//     getItem: (name: string) => string | null | Promise<string | null> {
+
+//     }
+//     setItem: (name: string, value: string) => void | Promise<void> {
+
+//     }
+
+//     removeItem: (name: string) => void | Promise<void> {
+
+//     }
+// }
+
+class Serializer {
+  storedEvents: Set<string> = new Set();
+
+  async serialize(state: State): Promise<string> {
+    const hashes = [];
+    const tasks = [];
+    for (const event of state.events) {
+      const hash = await event.hash();
+      if (this.storedEvents.has(hash)) {
+        continue;
+      }
+
+      this.storedEvents.add(hash);
+      tasks.push(localForage.setItem(hash, event.base64));
+      hashes.push(hash);
+    }
+
+    await Promise.all(tasks);
+    return JSON.stringify({
+      events: hashes,
+    });
+  }
+
+  async deserialize(str: string): Promise<Partial<State>> {
+    const stateRaw = JSON.parse(str);
+    const hashes = stateRaw["events"] as string[];
+    const events = await Promise.all(
+      hashes.map(async (h) => {
+        const img = (await localForage.getItem(h)) as string;
+        return new Image(img);
+      })
+    );
+
+    return {
+      events,
+    };
+  }
 }
+
+const serializer = new Serializer();
 
 const useStore = create(
   persist<State>(
     (set) => ({
       events: [],
-      addEvent: (e: Event) => {
+      addEvent: (e: Image) => {
         set((state) => ({
           events: [...state.events, e],
         }));
@@ -157,6 +216,10 @@ const useStore = create(
     }),
     {
       name: "state",
+      serialize: (state) => serializer.serialize(state.state),
+      deserialize: async (str) => ({
+        state: await serializer.deserialize(str),
+      }),
       // Force casting, localForage's setItem returns Promise<string> but can be treated as
       // Promise<void>
       getStorage: () => localForage as StateStorage,

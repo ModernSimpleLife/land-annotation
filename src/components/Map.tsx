@@ -13,7 +13,7 @@ import Map, {
   Layer,
   FillLayer,
 } from "react-map-gl";
-import { Event } from "../state";
+import { Image } from "../state";
 import { Position } from "geojson";
 import mapboxgl from "mapbox-gl"; // This is a dependency of react-map-gl even if you didn't explicitly install it
 import { useState } from "react";
@@ -65,7 +65,7 @@ const layerStyle: FillLayer = {
 };
 
 interface EventDetailsProps {
-  event: Event;
+  event: Image;
 }
 
 function EventDetails(props: EventDetailsProps) {
@@ -73,24 +73,24 @@ function EventDetails(props: EventDetailsProps) {
     <IonCard>
       <IonCardHeader className="flex flex-col items-center">
         <img
-          src={props.event.image.base64}
+          src={props.event.base64}
           alt="Marker"
           className="w-64 h-64 rounded-full object-cover"
         ></img>
-        <IonCardTitle>{props.event.title}</IonCardTitle>
+        <IonCardTitle>{props.event.comment}</IonCardTitle>
         <IonCardSubtitle>{props.event.location.toString()}</IonCardSubtitle>
       </IonCardHeader>
-      <IonCardContent>{props.event.description}</IonCardContent>
+      {/* <IonCardContent>{props.event.description}</IonCardContent> */}
     </IonCard>
   );
 }
 
 export interface Props {
-  events: Event[];
+  events: Image[];
 }
 
 export default function AnnotatedMap(props: Props) {
-  const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
+  const [currentEvent, setCurrentEvent] = useState<Image | null>(null);
 
   return (
     <Map
@@ -119,8 +119,8 @@ export default function AnnotatedMap(props: Props) {
         >
           <button onClick={() => setCurrentEvent(e)}>
             <img
-              src={e.image.base64}
-              alt={e.title}
+              src={e.base64}
+              alt={e.comment}
               className="rounded-full w-16 h-16 object-cover"
             />
           </button>
