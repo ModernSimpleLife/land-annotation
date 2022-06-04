@@ -1,8 +1,10 @@
 import {
+  IonButton,
   IonCard,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
+  IonIcon,
   IonModal,
 } from "@ionic/react";
 import Map, {
@@ -16,6 +18,7 @@ import { Image } from "../state";
 import { Position } from "geojson";
 import mapboxgl from "mapbox-gl"; // This is a dependency of react-map-gl even if you didn't explicitly install it
 import { useState } from "react";
+import { arrowDown } from "ionicons/icons";
 
 // @ts-ignore
 mapboxgl.workerClass =
@@ -68,6 +71,14 @@ interface EventDetailsProps {
 }
 
 function EventDetails(props: EventDetailsProps) {
+  async function downloadBase64File() {
+    const downloadLink = document.createElement("a");
+    downloadLink.href = props.event.base64;
+    downloadLink.download = `${await props.event.hash()}.jpg`;
+    downloadLink.click();
+    downloadLink.remove();
+  }
+
   return (
     <IonCard>
       <IonCardHeader className="flex flex-col items-center">
@@ -78,6 +89,12 @@ function EventDetails(props: EventDetailsProps) {
         ></img>
         <IonCardTitle>{props.event.comment}</IonCardTitle>
         <IonCardSubtitle>{props.event.location.toString()}</IonCardSubtitle>
+        <IonButton
+          className="rounded-full w-8 h-8"
+          onClick={downloadBase64File}
+        >
+          <IonIcon icon={arrowDown}></IonIcon>
+        </IonButton>
       </IonCardHeader>
       {/* <IonCardContent>{props.event.description}</IonCardContent> */}
     </IonCard>
