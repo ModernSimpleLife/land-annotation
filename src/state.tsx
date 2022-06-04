@@ -106,6 +106,22 @@ export class Image {
     this.update();
   }
 
+  get datetime(): Date {
+    const dateStr = _.get(this.exifObj, ["0th", piexif.ImageIFD.DateTime]) as
+      | string
+      | null;
+    if (dateStr) {
+      // Convert YY:MM:DD HH:mm:SS to YY-MM-DDTHH:mm:ss
+      const tokens = dateStr.trim().split(" ");
+      const date = tokens[0].split(":").join("-");
+      const time = tokens[1];
+      const datetime = `${date}T${time}`;
+      return new Date(datetime);
+    } else {
+      return new Date();
+    }
+  }
+
   // get title(): string {
   //   return _.get(this.exifObj, ["0th", piexif.ImageIFD.XPTitle]) || "";
   // }

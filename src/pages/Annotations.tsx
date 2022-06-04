@@ -12,6 +12,8 @@ import {
   IonTitle,
   IonToolbar,
   IonIcon,
+  IonDatetime,
+  IonPopover,
 } from "@ionic/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import { locate, add } from "ionicons/icons";
@@ -122,7 +124,7 @@ interface FormEvent<T> {
 
 const EventForm: React.FC<FormEvent<Event>> = (event) => {
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [description, setComment] = useState("");
   const [location, setLocation] = useState<Location | null>(null);
   const [image, setImage] = useState<Image | null>(null);
 
@@ -143,11 +145,11 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
   async function onImageUpload(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files[0]) {
       const img = await Image.fromFile(event.target.files[0]);
-      console.log(img);
+      console.log(img.datetime);
       setImage(img);
       setTitle(img.title);
       setLocation(img.location);
-      setDescription(img.comment);
+      setComment(img.comment);
     }
   }
 
@@ -176,23 +178,6 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
       </IonListHeader>
       <IonList>
         <IonItem>
-          <IonLabel position="stacked">Title</IonLabel>
-          <IonInput
-            value={title}
-            onIonChange={(e) => setTitle(e.detail.value!)}
-          ></IonInput>
-        </IonItem>
-
-        <IonItem>
-          <IonLabel position="stacked">Description</IonLabel>
-          <IonInput
-            value={description}
-            onIonChange={(e) => setDescription(e.detail.value!)}
-          ></IonInput>
-        </IonItem>
-
-        <IonItem>
-          <IonLabel position="stacked">Image</IonLabel>
           <input
             type="file"
             accept="image/jpeg"
@@ -205,6 +190,22 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
         </IonItem>
 
         <IonItem>
+          <IonLabel position="stacked">Title</IonLabel>
+          <IonInput
+            value={title}
+            onIonChange={(e) => setTitle(e.detail.value!)}
+          ></IonInput>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel position="stacked">Comment</IonLabel>
+          <IonInput
+            value={description}
+            onIonChange={(e) => setComment(e.detail.value!)}
+          ></IonInput>
+        </IonItem>
+
+        <IonItem>
           <IonLabel position="stacked">Location</IonLabel>
           <IonInput
             value={location ? `${location.latitude},${location.longitude}` : ""}
@@ -213,6 +214,14 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
               <IonIcon icon={locate}></IonIcon>
             </IonButton>
           </IonInput>
+        </IonItem>
+
+        <IonItem>
+          <IonLabel position="stacked">01-13-22</IonLabel>
+          <IonButton id="date-picker">Pick Date and Time</IonButton>
+          <IonPopover trigger="date-picker">
+            <IonDatetime></IonDatetime>
+          </IonPopover>
         </IonItem>
       </IonList>
 
