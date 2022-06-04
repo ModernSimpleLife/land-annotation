@@ -122,6 +122,7 @@ export default function AnnotatedMap(props: Props) {
     >
       <GeolocateControl
         positionOptions={{ enableHighAccuracy: true }}
+        fitBoundsOptions={{ maxZoom: 18 }}
         trackUserLocation={true}
         showUserHeading={true}
         showAccuracyCircle={false}
