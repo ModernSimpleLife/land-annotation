@@ -132,25 +132,37 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
     );
   }
 
+  function downloadBase64File(base64Data: string) {
+    const downloadLink = document.createElement("a");
+    downloadLink.href = base64Data;
+    downloadLink.download = "data.jpg";
+    downloadLink.click();
+    downloadLink.remove();
+  }
+
   async function onImageUpload(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files[0]) {
       const img = await Image.fromFile(event.target.files[0]);
+      console.log(img);
       setImage(img);
+      setTitle(img.title);
+      setLocation(img.location);
+      setDescription(img.comment);
     }
   }
 
   function onSubmit() {
-    if (title.length === 0 || !location || !image) {
-      // TODO: validate
-      throw Error("invalid inputs");
-    }
+    if (!image) return;
+    image.title = title;
+    image.comment = description;
 
-    event.onSubmit({
-      title,
-      location,
-      image,
-      description,
-    });
+    downloadBase64File(image.base64);
+    // event.onSubmit({
+    //   title,
+    //   location,
+    //   image,
+    //   description,
+    // });
   }
 
   useEffect(() => {
@@ -181,7 +193,11 @@ const EventForm: React.FC<FormEvent<Event>> = (event) => {
 
         <IonItem>
           <IonLabel position="stacked">Image</IonLabel>
-          <input type="file" accept="image/*" onChange={onImageUpload}></input>
+          <input
+            type="file"
+            accept="image/jpeg"
+            onChange={onImageUpload}
+          ></input>
 
           {image && (
             <img className="w-full h-auto" src={image.base64} alt="Annotated" />
