@@ -85,7 +85,7 @@ function EventDetails(props: EventDetailsProps) {
         <img
           src={props.event.base64}
           alt="Marker"
-          className="w-64 h-64 rounded-full object-cover"
+          className="w-80 h-80 rounded-full object-cover"
         ></img>
         <IonCardTitle>{props.event.comment}</IonCardTitle>
         <IonCardSubtitle>{props.event.location.toString()}</IonCardSubtitle>
