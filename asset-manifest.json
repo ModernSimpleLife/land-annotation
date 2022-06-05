@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/land-annotation/static/css/main.8ac662da.css",
-    "main.js": "/land-annotation/static/js/main.36e60adb.js",
+    "main.css": "/land-annotation/static/css/main.d6eda688.css",
+    "main.js": "/land-annotation/static/js/main.efbc208a.js",
     "static/js/738.6f80ceea.chunk.js": "/land-annotation/static/js/738.6f80ceea.chunk.js",
     "static/js/372.06357cff.chunk.js": "/land-annotation/static/js/372.06357cff.chunk.js",
     "static/js/856.f5ebee0d.chunk.js": "/land-annotation/static/js/856.f5ebee0d.chunk.js",
@@ -14,8 +14,8 @@
     "static/js/mapbox-gl-csp-worker.144bc806.worker.js": "/land-annotation/static/js/mapbox-gl-csp-worker.144bc806.worker.js",
     "service-worker.js": "/land-annotation/service-worker.js",
     "index.html": "/land-annotation/index.html",
-    "main.8ac662da.css.map": "/land-annotation/static/css/main.8ac662da.css.map",
-    "main.36e60adb.js.map": "/land-annotation/static/js/main.36e60adb.js.map",
+    "main.d6eda688.css.map": "/land-annotation/static/css/main.d6eda688.css.map",
+    "main.efbc208a.js.map": "/land-annotation/static/js/main.efbc208a.js.map",
     "738.6f80ceea.chunk.js.map": "/land-annotation/static/js/738.6f80ceea.chunk.js.map",
     "372.06357cff.chunk.js.map": "/land-annotation/static/js/372.06357cff.chunk.js.map",
     "856.f5ebee0d.chunk.js.map": "/land-annotation/static/js/856.f5ebee0d.chunk.js.map",
@@ -27,7 +27,7 @@
     "377.d5003f35.chunk.js.map": "/land-annotation/static/js/377.d5003f35.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.8ac662da.css",
-    "static/js/main.36e60adb.js"
+    "static/css/main.d6eda688.css",
+    "static/js/main.efbc208a.js"
   ]
 }
