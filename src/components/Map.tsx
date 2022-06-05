@@ -85,7 +85,7 @@ function EventDetails(props: EventDetailsProps) {
         <img
           src={props.event.base64}
           alt="Marker"
-          className="w-80 h-80 rounded-full object-cover"
+          className="w-auto h-128 max-h-full object-cover"
         ></img>
         <IonCardTitle>{props.event.comment}</IonCardTitle>
         <IonCardSubtitle>{props.event.location.toString()}</IonCardSubtitle>
@@ -153,7 +153,7 @@ export default function AnnotatedMap(props: Props) {
         onDidDismiss={() => setCurrentEvent(null)}
         isOpen={!!currentEvent}
         breakpoints={[0.1, 0.5, 1]}
-        initialBreakpoint={0.5}
+        initialBreakpoint={1}
       >
         {currentEvent && <EventDetails event={currentEvent}></EventDetails>}
       </IonModal>
