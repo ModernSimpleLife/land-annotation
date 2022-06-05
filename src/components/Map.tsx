@@ -83,6 +83,7 @@ function EventDetails(props: EventDetailsProps) {
     <IonCard>
       <IonCardHeader className="flex flex-col items-center">
         <img
+          loading="lazy"
           src={props.event.base64}
           alt="Marker"
           className="w-auto h-128 max-h-full object-cover"
@@ -137,6 +138,7 @@ export default function AnnotatedMap(props: Props) {
         >
           <button onClick={() => setCurrentEvent(e)}>
             <img
+              loading="lazy"
               src={e.base64}
               alt={e.comment}
               className="rounded-full w-16 h-16 object-cover"
