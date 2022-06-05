@@ -23,21 +23,21 @@ export class Location {
 
 // given a piexifjs object, this function displays its exif tags
 // in a human-readable format
-function debugExif(exif: any) {
-  for (const ifd in exif) {
-    if (ifd === "thumbnail") {
-      const thumbnailData = exif[ifd] === null ? "null" : exif[ifd];
-      console.log(`- thumbnail: ${thumbnailData}`);
-    } else {
-      console.log(`- ${ifd}`);
-      for (const tag in exif[ifd]) {
-        console.log(
-          `    - ${piexif.TAGS[ifd][tag]["name"]}: ${exif[ifd][tag]}`
-        );
-      }
-    }
-  }
-}
+// function debugExif(exif: any) {
+//   for (const ifd in exif) {
+//     if (ifd === "thumbnail") {
+//       const thumbnailData = exif[ifd] === null ? "null" : exif[ifd];
+//       console.log(`- thumbnail: ${thumbnailData}`);
+//     } else {
+//       console.log(`- ${ifd}`);
+//       for (const tag in exif[ifd]) {
+//         console.log(
+//           `    - ${piexif.TAGS[ifd][tag]["name"]}: ${exif[ifd][tag]}`
+//         );
+//       }
+//     }
+//   }
+// }
 
 export class Image {
   readonly exifObj: any;
