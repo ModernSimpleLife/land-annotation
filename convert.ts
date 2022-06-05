@@ -26,6 +26,7 @@ const events = [];
         performance.mark("image-end");
 
         // performance.mark("location-start");
+        console.log(d.location);
         img.location = new Location(d.location.latitude, d.location.longitude);
         // performance.mark("location-end");
 

@@ -32,7 +32,7 @@ function debugExif(exif: any) {
       console.log(`- ${ifd}`);
       for (const tag in exif[ifd]) {
         console.log(
-          `    - ${piexif.tags[ifd][tag]["name"]}: ${exif[ifd][tag]}`
+          `    - ${piexif.TAGS[ifd][tag]["name"]}: ${exif[ifd][tag]}`
         );
       }
     }
@@ -53,7 +53,7 @@ export class Image {
       thumbnail: null,
     };
     this.exifObj = newExif;
-    // debugExif(obj);
+    // debugExif(this.exifObj);
   }
 
   async hash(): Promise<string> {
@@ -107,7 +107,8 @@ export class Image {
   }
 
   get location(): Location {
-    return this.getLocation() || new Location(0, 0);
+    const loc = this.getLocation() || new Location(0, 0);
+    return loc;
   }
 
   set location(loc: Location) {
@@ -119,7 +120,7 @@ export class Image {
     );
     gps[piexif.GPSIFD.GPSLatitudeRef] = "N";
     gps[piexif.GPSIFD.GPSLongitude] = piexif.GPSHelper.degToDmsRational(
-      loc.latitude
+      loc.longitude
     );
     gps[piexif.GPSIFD.GPSLongitudeRef] = "W";
   }

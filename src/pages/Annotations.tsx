@@ -24,7 +24,6 @@ const AnnotationsPage: React.FC = () => {
       const fileReader = new FileReader();
       fileReader.readAsText(e.target.files[0], "UTF-8");
       fileReader.onload = (e) => {
-        console.log(fileReader.result);
         // const json = JSON.parse(fileReader.result as string);
         importState(fileReader.result as string);
       };
