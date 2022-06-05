@@ -31,13 +31,13 @@ class Serializer {
     const tasks = [];
     for (const event of state.events) {
       const hash = await event.hash();
+      hashes.push(hash);
       if (this.storedEvents.has(hash)) {
         continue;
       }
 
       this.storedEvents.add(hash);
       tasks.push(localForage.setItem(hash, event.base64));
-      hashes.push(hash);
     }
 
     await Promise.all(tasks);

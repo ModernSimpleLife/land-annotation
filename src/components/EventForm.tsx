@@ -40,6 +40,7 @@ export default function Form(event: FormEvent<Image>) {
   function onSubmit() {
     if (!image) return;
     image.comment = comment;
+    image.commit();
 
     // downloadBase64File(image.base64);
     event.onSubmit(image);
