@@ -1,4 +1,4 @@
-import { IonModal } from "@ionic/react";
+import { IonInput, IonModal, IonSearchbar } from "@ionic/react";
 import Map, {
   GeolocateControl,
   Marker,
@@ -10,8 +10,9 @@ import Map, {
 import { Image } from "../state";
 import { Position } from "geojson";
 import mapboxgl from "mapbox-gl"; // This is a dependency of react-map-gl even if you didn't explicitly install it
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import EventDetails from "./EventDetails";
+import FuzzySearch from "fuzzy-search";
 
 // @ts-ignore
 mapboxgl.workerClass =
@@ -64,8 +65,24 @@ export interface Props {
 }
 
 export default function AnnotatedMap(props: Props) {
+  const fuzzySearchRef = useRef(new FuzzySearch(props.events, ["comment"]));
   const [currentEvent, setCurrentEvent] = useState<Image | null>(null);
   const geolocateRef = useRef<GeolocateControlRef>(null);
+  const [filteredEvents, setFilteredEvents] = useState(props.events);
+  const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    fuzzySearchRef.current.haystack = props.events;
+  }, [props.events]);
+
+  useEffect(() => {
+    if (query === "") {
+      setFilteredEvents(props.events);
+    } else {
+      const result = fuzzySearchRef.current.search(query);
+      setFilteredEvents(result);
+    }
+  }, [query, props.events]);
 
   return (
     <Map
@@ -82,6 +99,13 @@ export default function AnnotatedMap(props: Props) {
       mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
       mapboxAccessToken="pk.eyJ1IjoibGhlcm1hbi1jcyIsImEiOiJja3g1ZjF1bXoyYW82MnZxM21jODBmanJ3In0.BAJg8UuLGqwVd4WI1XFXUA"
     >
+      <IonSearchbar
+        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 max-w-sm m-auto"
+        debounce={400}
+        value={query}
+        onIonChange={(e) => setQuery(e.target.value as string)}
+      ></IonSearchbar>
+
       <GeolocateControl
         positionOptions={{ enableHighAccuracy: true }}
         fitBoundsOptions={{ maxZoom: 20 }}
@@ -91,7 +115,7 @@ export default function AnnotatedMap(props: Props) {
         ref={geolocateRef}
       />
 
-      {props.events.map((e, i) => (
+      {filteredEvents.map((e, i) => (
         <Marker
           key={i}
           longitude={e.location.longitude}
