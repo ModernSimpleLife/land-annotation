@@ -11,6 +11,7 @@ import {
   IonTitle,
   IonToolbar,
   IonIcon,
+  IonLoading,
 } from "@ionic/react";
 import { ChangeEvent, useRef, useState } from "react";
 import { add } from "ionicons/icons";
@@ -21,15 +22,18 @@ import EventDetails from "../components/EventDetails";
 import { Image } from "../image";
 
 const AnnotationsPage: React.FC = () => {
+  const [showLoading, setShowLoading] = useState(false);
   const fileUploadRef = useRef<HTMLInputElement>(null);
 
   function handleImport(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files[0]) {
+      setShowLoading(true);
       const fileReader = new FileReader();
       fileReader.readAsText(e.target.files[0], "UTF-8");
-      fileReader.onload = (e) => {
+      fileReader.onload = async (e) => {
         // const json = JSON.parse(fileReader.result as string);
-        importState(fileReader.result as string);
+        await importState(fileReader.result as string);
+        setShowLoading(false);
       };
     }
   }
@@ -79,6 +83,8 @@ const AnnotationsPage: React.FC = () => {
           <EventsSection></EventsSection>
         </div>
       </IonContent>
+
+      <IonLoading isOpen={showLoading} message={"Importing..."}></IonLoading>
     </IonPage>
   );
 };
