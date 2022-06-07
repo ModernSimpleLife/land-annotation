@@ -137,12 +137,9 @@ export default function AnnotatedMap(props: Props) {
           anchor="bottom"
         >
           <button onClick={() => setCurrentEvent(e)}>
-            <img
-              loading="lazy"
-              src={e.base64}
-              alt={e.comment}
-              className="rounded-full w-16 h-16 object-cover"
-            />
+            <div className="max-w-[8rem] w-auto h-auto max-h-[8rem] text-ellipsis rounded-lg bg-gray-800 p-2 text-center">
+              {e.comment}
+            </div>
           </button>
         </Marker>
       ))}
