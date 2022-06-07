@@ -5,11 +5,12 @@ import Map, {
   Source,
   Layer,
   FillLayer,
+  GeolocateControlRef,
 } from "react-map-gl";
 import { Image } from "../state";
 import { Position } from "geojson";
 import mapboxgl from "mapbox-gl"; // This is a dependency of react-map-gl even if you didn't explicitly install it
-import { useState } from "react";
+import { useRef, useState } from "react";
 import EventDetails from "./EventDetails";
 
 // @ts-ignore
@@ -64,6 +65,7 @@ export interface Props {
 
 export default function AnnotatedMap(props: Props) {
   const [currentEvent, setCurrentEvent] = useState<Image | null>(null);
+  const geolocateRef = useRef<GeolocateControlRef>(null);
 
   return (
     <Map
@@ -72,17 +74,21 @@ export default function AnnotatedMap(props: Props) {
         latitude: 36.073211,
         zoom: 18,
       }}
-      onLoad={(e) => e.target.resize()}
+      onLoad={(e) => {
+        e.target.resize();
+        geolocateRef.current?.trigger();
+      }}
       onIdle={(e) => e.target.resize()}
       mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
       mapboxAccessToken="pk.eyJ1IjoibGhlcm1hbi1jcyIsImEiOiJja3g1ZjF1bXoyYW82MnZxM21jODBmanJ3In0.BAJg8UuLGqwVd4WI1XFXUA"
     >
       <GeolocateControl
         positionOptions={{ enableHighAccuracy: true }}
-        fitBoundsOptions={{ maxZoom: 18 }}
+        fitBoundsOptions={{ maxZoom: 20 }}
         trackUserLocation={true}
         showUserHeading={true}
         showAccuracyCircle={false}
+        ref={geolocateRef}
       />
 
       {props.events.map((e, i) => (
