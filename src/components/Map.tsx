@@ -100,13 +100,14 @@ export default function AnnotatedMap(props: Props) {
       mapboxAccessToken="pk.eyJ1IjoibGhlcm1hbi1jcyIsImEiOiJja3g1ZjF1bXoyYW82MnZxM21jODBmanJ3In0.BAJg8UuLGqwVd4WI1XFXUA"
     >
       <IonSearchbar
-        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 max-w-sm m-auto"
-        debounce={400}
+        className="absolute top-0 left-1/2 transform -translate-x-1/2 max-w-sm z-20"
+        debounce={200}
         value={query}
         onIonChange={(e) => setQuery(e.target.value as string)}
       ></IonSearchbar>
 
       <GeolocateControl
+        position="bottom-left"
         positionOptions={{ enableHighAccuracy: true }}
         fitBoundsOptions={{ maxZoom: 20 }}
         trackUserLocation={true}
