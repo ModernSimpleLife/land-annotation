@@ -90,12 +90,7 @@ function EventDetails(props: EventDetailsProps) {
         ></img>
         <IonCardTitle>{props.event.comment}</IonCardTitle>
         <IonCardSubtitle>{props.event.location.toString()}</IonCardSubtitle>
-        <IonButton
-          className="rounded-full w-8 h-8"
-          onClick={downloadBase64File}
-        >
-          <IonIcon icon={arrowDown}></IonIcon>
-        </IonButton>
+        <IonButton onClick={downloadBase64File}>Download</IonButton>
       </IonCardHeader>
       {/* <IonCardContent>{props.event.description}</IonCardContent> */}
     </IonCard>

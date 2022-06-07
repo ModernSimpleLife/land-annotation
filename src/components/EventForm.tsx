@@ -22,11 +22,11 @@ export default function Form(event: FormEvent<Image>) {
   const [location, setLocation] = useState<Location | null>(null);
   const [image, setImage] = useState<Image | null>(null);
 
-  function getCurrentLocation() {
-    navigator.geolocation.getCurrentPosition((loc) =>
-      setLocation(new Location(loc.coords.latitude, loc.coords.longitude))
-    );
-  }
+  // function getCurrentLocation() {
+  //   navigator.geolocation.getCurrentPosition((loc) =>
+  //     setLocation(new Location(loc.coords.latitude, loc.coords.longitude))
+  //   );
+  // }
 
   async function onImageUpload(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files && event.target.files[0]) {
@@ -38,7 +38,7 @@ export default function Form(event: FormEvent<Image>) {
   }
 
   function onSubmit() {
-    if (!image) return;
+    if (!image || !location) return;
     image.comment = comment;
     image.commit();
 
@@ -46,9 +46,9 @@ export default function Form(event: FormEvent<Image>) {
     event.onSubmit(image);
   }
 
-  useEffect(() => {
-    getCurrentLocation();
-  }, []);
+  // useEffect(() => {
+  //   getCurrentLocation();
+  // }, []);
 
   return (
     <IonContent>
@@ -90,10 +90,12 @@ export default function Form(event: FormEvent<Image>) {
         </IonItem> */}
       </IonList>
 
-      <IonButton onClick={onSubmit}>Add</IonButton>
-      <IonButton color="danger" onClick={event.onCancel}>
-        Cancel
-      </IonButton>
+      <div className="flex justify-center">
+        <IonButton onClick={onSubmit}>Add</IonButton>
+        <IonButton color="danger" onClick={event.onCancel}>
+          Cancel
+        </IonButton>
+      </div>
     </IonContent>
   );
 }

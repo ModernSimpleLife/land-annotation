@@ -12,13 +12,15 @@ import {
   IonToolbar,
   IonIcon,
 } from "@ionic/react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { add } from "ionicons/icons";
 import "./Annotations.css";
 import useStore, { exportState, importState } from "../state";
 import EventForm from "../components/EventForm";
 
 const AnnotationsPage: React.FC = () => {
+  const fileUploadRef = useRef<HTMLInputElement>(null);
+
   function handleImport(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files[0]) {
       const fileReader = new FileReader();
@@ -59,7 +61,19 @@ const AnnotationsPage: React.FC = () => {
 
         <div className="p-8 w-full h-full">
           <IonButton onClick={handleExport}>Export</IonButton>
-          <input type="file" accept=".json" onChange={handleImport} />
+          <IonButton
+            onClick={() => fileUploadRef.current!.click()}
+            color="danger"
+          >
+            Import
+          </IonButton>
+          <input
+            className="hidden"
+            type="file"
+            accept=".json"
+            onChange={handleImport}
+            ref={fileUploadRef}
+          />
           <EventsSection></EventsSection>
         </div>
       </IonContent>
@@ -80,9 +94,9 @@ const EventsSection: React.FC = () => {
       <IonList>
         {events.map((e, i) => (
           <IonItem key={i}>
-            <IonButton expand="full">
+            <button>
               {i + 1}. {e.comment}
-            </IonButton>
+            </button>
           </IonItem>
         ))}
         <IonButton expand="full" onClick={() => setShowForm(true)}>
