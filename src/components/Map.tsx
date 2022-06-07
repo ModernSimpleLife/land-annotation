@@ -1,12 +1,4 @@
-import {
-  IonButton,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonIcon,
-  IonModal,
-} from "@ionic/react";
+import { IonModal } from "@ionic/react";
 import Map, {
   GeolocateControl,
   Marker,
@@ -18,7 +10,7 @@ import { Image } from "../state";
 import { Position } from "geojson";
 import mapboxgl from "mapbox-gl"; // This is a dependency of react-map-gl even if you didn't explicitly install it
 import { useState } from "react";
-import { arrowDown } from "ionicons/icons";
+import EventDetails from "./EventDetails";
 
 // @ts-ignore
 mapboxgl.workerClass =
@@ -65,37 +57,6 @@ const layerStyle: FillLayer = {
     "fill-opacity": 0.3,
   },
 };
-
-interface EventDetailsProps {
-  event: Image;
-}
-
-function EventDetails(props: EventDetailsProps) {
-  async function downloadBase64File() {
-    const downloadLink = document.createElement("a");
-    downloadLink.href = props.event.base64;
-    downloadLink.download = `${await props.event.hash()}.jpg`;
-    downloadLink.click();
-    downloadLink.remove();
-  }
-
-  return (
-    <IonCard>
-      <IonCardHeader className="flex flex-col items-center">
-        <img
-          loading="lazy"
-          src={props.event.base64}
-          alt="Marker"
-          className="w-auto h-128 max-h-full object-cover"
-        ></img>
-        <IonCardTitle>{props.event.comment}</IonCardTitle>
-        <IonCardSubtitle>{props.event.location.toString()}</IonCardSubtitle>
-        <IonButton onClick={downloadBase64File}>Download</IonButton>
-      </IonCardHeader>
-      {/* <IonCardContent>{props.event.description}</IonCardContent> */}
-    </IonCard>
-  );
-}
 
 export interface Props {
   events: Image[];
@@ -149,7 +110,12 @@ export default function AnnotatedMap(props: Props) {
         breakpoints={[0.1, 0.5, 1]}
         initialBreakpoint={1}
       >
-        {currentEvent && <EventDetails event={currentEvent}></EventDetails>}
+        {currentEvent && (
+          <EventDetails
+            event={currentEvent}
+            onDone={() => setCurrentEvent(null)}
+          ></EventDetails>
+        )}
       </IonModal>
     </Map>
   );

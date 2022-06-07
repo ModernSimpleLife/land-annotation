@@ -9,7 +9,7 @@ import {
   //   IonDatetime,
   //   IonPopover,
 } from "@ionic/react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Image, Location } from "../state";
 
 export interface FormEvent<T> {

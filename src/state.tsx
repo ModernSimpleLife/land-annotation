@@ -8,6 +8,7 @@ export { Image, Location } from "./image";
 export interface State {
   events: Image[];
   addEvent: (e: Image) => void;
+  deleteEvent: (e: Image) => Promise<void>;
 }
 
 // class PersistentStorage implements StateStorage {
@@ -73,6 +74,29 @@ const useStore = create(
           events: [...state.events, e],
         }));
       },
+      deleteEvent: async (e: Image) => {
+        const h = await e.hash();
+        const state = useStore.getState();
+        let idx = -1;
+
+        let events = state.events;
+        for (let i = 0; i < events.length; i++) {
+          const event = events[i];
+          const target = await event.hash();
+          if (h === target) {
+            idx = i;
+            break;
+          }
+        }
+
+        if (idx !== -1) {
+          events = [...events.slice(0, idx), ...events.slice(idx + 1)];
+        }
+
+        set({
+          events,
+        });
+      },
       import: (json: string) => {},
     }),
     {
@@ -111,12 +135,9 @@ export async function importState(json: string) {
     currentEvents.push(e);
   }
 
-  useStore.setState(
-    {
-      events: currentEvents,
-    },
-    true
-  );
+  useStore.setState({
+    events: currentEvents,
+  });
 }
 
 export function exportState(): string {

@@ -17,6 +17,8 @@ import { add } from "ionicons/icons";
 import "./Annotations.css";
 import useStore, { exportState, importState } from "../state";
 import EventForm from "../components/EventForm";
+import EventDetails from "../components/EventDetails";
+import { Image } from "../image";
 
 const AnnotationsPage: React.FC = () => {
   const fileUploadRef = useRef<HTMLInputElement>(null);
@@ -85,6 +87,7 @@ const EventsSection: React.FC = () => {
   const events = useStore((state) => state.events);
   const addEvent = useStore((state) => state.addEvent);
   const [showForm, setShowForm] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState<Image | null>(null);
 
   return (
     <IonContent>
@@ -93,13 +96,25 @@ const EventsSection: React.FC = () => {
       </IonListHeader>
       <IonList>
         {events.map((e, i) => (
-          <IonItem key={i}>
-            <button>
-              {i + 1}. {e.comment}
-            </button>
+          <IonItem
+            key={i}
+            className="cursor-pointer"
+            onClick={() => {
+              setSelectedEvent(e);
+              setShowForm(true);
+            }}
+          >
+            {i + 1}. {e.comment}
           </IonItem>
         ))}
-        <IonButton expand="full" onClick={() => setShowForm(true)}>
+        <IonButton
+          expand="full"
+          onClick={() => {
+            setSelectedEvent(null);
+            setShowForm(true);
+          }}
+          className="my-4"
+        >
           <IonIcon icon={add}></IonIcon>
         </IonButton>
       </IonList>
@@ -108,15 +123,22 @@ const EventsSection: React.FC = () => {
         onDidDismiss={() => setShowForm(false)}
         isOpen={showForm}
         breakpoints={[0.1, 0.5, 1]}
-        initialBreakpoint={0.5}
+        initialBreakpoint={1}
       >
-        <EventForm
-          onSubmit={(e) => {
-            setShowForm(false);
-            addEvent(e);
-          }}
-          onCancel={() => setShowForm(false)}
-        />
+        {selectedEvent ? (
+          <EventDetails
+            event={selectedEvent}
+            onDone={() => setShowForm(false)}
+          ></EventDetails>
+        ) : (
+          <EventForm
+            onSubmit={(e) => {
+              setShowForm(false);
+              addEvent(e);
+            }}
+            onCancel={() => setShowForm(false)}
+          />
+        )}
       </IonModal>
     </IonContent>
   );
