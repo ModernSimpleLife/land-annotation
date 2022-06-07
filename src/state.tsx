@@ -88,16 +88,32 @@ const useStore = create(
   )
 );
 
-export function importState(json: string) {
+export async function importState(json: string) {
   // TODO: validate
   const stateRaw = JSON.parse(json);
   const events = (stateRaw["events"] as Record<string, string>[]).map(
     (b) => new Image(b["_base64"])
   );
 
+  const currentEvents = useStore.getState().events;
+  const added = new Set<string>();
+  for (const e of currentEvents) {
+    added.add(await e.hash());
+  }
+
+  for (const e of events) {
+    const h = await e.hash();
+    if (added.has(h)) {
+      continue;
+    }
+
+    added.add(h);
+    currentEvents.push(e);
+  }
+
   useStore.setState(
     {
-      events,
+      events: currentEvents,
     },
     true
   );
