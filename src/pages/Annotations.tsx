@@ -14,7 +14,7 @@ import {
   IonLoading,
 } from "@ionic/react";
 import { ChangeEvent, useRef, useState } from "react";
-import { add } from "ionicons/icons";
+import { add, trashBin } from "ionicons/icons";
 import "./Annotations.css";
 import useStore, { exportState, importState } from "../state";
 import EventForm from "../components/EventForm";
@@ -65,23 +65,31 @@ const AnnotationsPage: React.FC = () => {
           </IonToolbar>
         </IonHeader>
 
-        <div className="p-8 w-full h-full">
-          <IonButton onClick={handleExport}>Export</IonButton>
-          <IonButton
-            onClick={() => fileUploadRef.current!.click()}
-            color="danger"
-          >
-            Import
-          </IonButton>
-          <input
-            className="hidden"
-            type="file"
-            accept=".json"
-            onChange={handleImport}
-            ref={fileUploadRef}
-          />
-          <EventsSection></EventsSection>
+        <div className="flex justify-between">
+          <div>
+            <IonButton onClick={handleExport}>Export</IonButton>
+            <IonButton
+              onClick={() => fileUploadRef.current!.click()}
+              color="danger"
+            >
+              Import
+            </IonButton>
+          </div>
+          <div>
+            <IonButton color="danger">
+              <IonIcon icon={trashBin}></IonIcon>
+              Clear Data
+            </IonButton>
+          </div>
         </div>
+        <input
+          className="hidden"
+          type="file"
+          accept=".json"
+          onChange={handleImport}
+          ref={fileUploadRef}
+        />
+        <EventsSection></EventsSection>
       </IonContent>
 
       <IonLoading isOpen={showLoading} message={"Importing..."}></IonLoading>
