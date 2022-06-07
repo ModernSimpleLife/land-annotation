@@ -1,4 +1,4 @@
-import { IonInput, IonModal, IonSearchbar } from "@ionic/react";
+import { IonModal, IonSearchbar } from "@ionic/react";
 import Map, {
   GeolocateControl,
   Marker,
