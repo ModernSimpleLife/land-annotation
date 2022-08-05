@@ -70,6 +70,7 @@ export default function AnnotatedMap(props: Props) {
   const geolocateRef = useRef<GeolocateControlRef>(null);
   const [filteredEvents, setFilteredEvents] = useState(props.events);
   const [query, setQuery] = useState("");
+  const [showText, setShowText] = useState(true);
 
   useEffect(() => {
     fuzzySearchRef.current.haystack = props.events;
@@ -105,7 +106,8 @@ export default function AnnotatedMap(props: Props) {
         value={query}
         onIonChange={(e) => setQuery(e.target.value as string)}
       ></IonSearchbar>
-
+      <button onClick={() => setShowText(!showText)}>Toggle</button>
+      
       <GeolocateControl
         position="bottom-left"
         positionOptions={{ enableHighAccuracy: true }}
@@ -125,7 +127,7 @@ export default function AnnotatedMap(props: Props) {
         >
           <button onClick={() => setCurrentEvent(e)}>
             <div className="max-w-[8rem] w-auto h-auto max-h-[8rem] text-ellipsis rounded-lg bg-gray-800 p-2 text-center">
-              {e.comment}
+              {showText ? e.comment : i}
             </div>
           </button>
         </Marker>
