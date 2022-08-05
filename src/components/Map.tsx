@@ -106,7 +106,7 @@ export default function AnnotatedMap(props: Props) {
         value={query}
         onIonChange={(e) => setQuery(e.target.value as string)}
       ></IonSearchbar>
-      <button className="absolute top-1/2 left-0" onClick={() => setShowText(!showText)}>Toggle</button>
+      <button className="absolute top-1/2 left-0 z-20" onClick={() => setShowText(!showText)}>Toggle</button>
       
       <GeolocateControl
         position="bottom-left"
